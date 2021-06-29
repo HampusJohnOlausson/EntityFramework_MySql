@@ -47,7 +47,7 @@ namespace EntityFramework_MySql
             }
             app.UseHttpsRedirection();
             app.UseStaticFiles();
-            app.UseIdentity();
+            app.UseAuthentication();
 
             app.UseRouting();
 

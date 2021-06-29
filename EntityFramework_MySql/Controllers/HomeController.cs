@@ -6,16 +6,18 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using EntityFramework_MySql.Models;
+using EntityFramework_MySql.DAL;
 
 namespace EntityFramework_MySql.Controllers
 {
+
     public class HomeController : Controller
     {
-        private readonly ILogger<HomeController> _logger;
+        private readonly MySqlContext context;
 
-        public HomeController(ILogger<HomeController> logger)
+        public HomeController(MySqlContext context)
         {
-            _logger = logger;
+            this.context = context;   
         }
 
         public IActionResult Index()
