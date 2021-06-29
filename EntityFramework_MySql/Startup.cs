@@ -8,6 +8,10 @@ using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.EntityFrameworkCore;
+using EntityFramework_MySql.DAL;
+using EntityFramework_MySql.Models;
+using Microsoft.AspNetCore.Identity;
 
 namespace EntityFramework_MySql
 {
@@ -23,6 +27,8 @@ namespace EntityFramework_MySql
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddDbContext<MySqlContext>(options => options.UseMySQL(Configuration.GetConnectionString("mysqlConnection")));
+            services.AddIdentity<ApplicationUser, IdentityRole>().AddEntityFrameworkStores<MySqlContext>().AddDefaultTokenProviders();
             services.AddControllersWithViews();
         }
 
@@ -41,6 +47,7 @@ namespace EntityFramework_MySql
             }
             app.UseHttpsRedirection();
             app.UseStaticFiles();
+            app.UseIdentity();
 
             app.UseRouting();
 
